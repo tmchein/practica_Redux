@@ -1,0 +1,49 @@
+{
+  "productos": [
+    {
+      "nombre": "Rib Eye",
+      "precio": "40000",
+      "id": 1
+    },
+    {
+      "nombre": "Jugo de Limón",
+      "precio": "1500",
+      "id": 2
+    },
+    {
+      "nombre": "Aguapanela caliente con queso embotellada",
+      "precio": "5000",
+      "id": 3
+    },
+    {
+      "nombre": "Changüa en bolsa",
+      "precio": "6700",
+      "id": 4
+    },
+    {
+      "nombre": "Empanada",
+      "precio": "1700",
+      "id": 5
+    },
+    {
+      "nombre": "Jhosua termino medio",
+      "precio": 1000,
+      "id": 6
+    },
+    {
+      "nombre": "asdasd",
+      "precio": 123123,
+      "id": 7
+    },
+    {
+      "nombre": "Clavos de olor",
+      "precio": 500,
+      "id": 8
+    },
+    {
+      "nombre": "Jugo de tamarindo",
+      "precio": 1500,
+      "id": 9
+    }
+  ]
+}
