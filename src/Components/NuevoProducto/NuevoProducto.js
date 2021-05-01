@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from "react";
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { crearNuevoProductoAction } from '../../actions/productosActions';
+import { useDispatch, useSelector } from "react-redux";
+import { crearNuevoProductoAction } from "../../actions/productosActions";
+import {
+  mostrarAlerta,
+  ocultarAlertaAction,
+} from "../../actions/alertaActions";
 
 const NuevoProducto = ({ history }) => {
-  const [nombre, setNombre] = useState('');
+  const [nombre, setNombre] = useState("");
   const [precio, setPrecio] = useState(0);
   const dispatch = useDispatch();
 
@@ -12,6 +16,7 @@ const NuevoProducto = ({ history }) => {
 
   const loading = useSelector((state) => state.productos.loading);
   const error = useSelector((state) => state.productos.error);
+  const alerta = useSelector((state) => state.alerta.alerta);
 
   const agregarProducto = (producto) =>
     dispatch(crearNuevoProductoAction(producto));
@@ -22,9 +27,19 @@ const NuevoProducto = ({ history }) => {
     //validar formulario
 
     //revisar que no haya errores
-    if (nombre.trim() === '' || precio <= 0) {
+    if (nombre.trim() === "" || precio <= 0) {
+      const alerta = {
+        msg: "Ambos campos son obligatorios",
+        classes: "alert alert-danger text-center text-uppercase p3",
+      };
+
+      dispatch(mostrarAlerta(alerta));
       return;
     }
+
+    //si no hay errores
+    dispatch(ocultarAlertaAction());
+
     //crear nuevo producto
     agregarProducto({
       nombre,
@@ -32,7 +47,7 @@ const NuevoProducto = ({ history }) => {
     });
 
     //redireccionar al home
-    history.push('/');
+    history.push("/");
   };
 
   return (
@@ -43,6 +58,8 @@ const NuevoProducto = ({ history }) => {
             <h2 className="text-center mb-4 font-weight-bold">
               Agregar Nuevo Producto
             </h2>
+
+            {alerta && <p className={alerta.classes}>{alerta.msg}</p>}
             <form onSubmit={submitNuevoProducto}>
               <div className="form-group">
                 <label>Nombre producto</label>

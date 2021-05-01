@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 // Redux
-import { useSelector, useDispatch } from 'react-redux';
-import { obtenerProductosAction } from '../../actions/productosActions';
-import Producto from '../Producto/Producto';
+import { useSelector, useDispatch } from "react-redux";
+import { obtenerProductosAction } from "../../actions/productosActions";
+import Producto from "../Producto/Producto";
 
 const Productos = () => {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ const Productos = () => {
   useEffect(() => {
     const cargarProductos = () => dispatch(obtenerProductosAction());
     cargarProductos();
-  }, []);
+  }, [dispatch]);
 
   //Consultar la api
   const productos = useSelector((state) => state.productos.productos);
@@ -20,15 +20,12 @@ const Productos = () => {
   return (
     <>
       <h2 className="text-center my-5">Listado de productos</h2>
-
       {error && (
         <p className="font-weight-bold alert alert-danger text-center mt-4">
           Hubo un error
         </p>
       )}
-
-      {cargando && <p className="text-center">Cargando</p>}
-
+      {cargando && <p className="text-center">Cargando...</p>}
       <table className="table table-striped">
         <thead className="bg-primary table-dark">
           <tr>
@@ -38,11 +35,15 @@ const Productos = () => {
           </tr>
         </thead>
         <tbody>
-          {productos.length === 0
-            ? 'No hay productos'
-            : productos.map((producto) => (
-                <Producto key={producto.id} producto={producto} />
-              ))}
+          {productos.length === 0 ? (
+            <tr>
+              <td>No hay productos</td>
+            </tr>
+          ) : (
+            productos.map((producto) => (
+              <Producto key={producto.id} producto={producto} />
+            ))
+          )}
         </tbody>
       </table>
     </>
